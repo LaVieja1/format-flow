@@ -1,8 +1,11 @@
+import { Content, RootLayout, Sidebar } from '@/components'
+
 function App() {
   return (
-    <div className="flex h-full items-center justify-center">
-      <span className="text-4xl text-blue-100">Hola desde Electron</span>
-    </div>
+    <RootLayout>
+      <Sidebar className="p-2 ">Sidebar</Sidebar>
+      <Content className="border-l bg-zinc-700/50 border-l-white/20">Content</Content>
+    </RootLayout>
   )
 }
 
