@@ -13,10 +13,10 @@ function createWindow(): void {
     ...(process.platform === 'linux' ? { icon } : {}),
     center: true,
     title: 'FormatFlow',
-    frame: false,
+    frame: true,
     vibrancy: 'under-window',
     visualEffectState: 'active',
-    titleBarStyle: 'hidden',
+    titleBarStyle: 'default',
     trafficLightPosition: { x: 15, y: 10 },
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
