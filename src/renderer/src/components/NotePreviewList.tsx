@@ -5,8 +5,12 @@ import { useNotesList } from '@renderer/hooks/useNotesList'
 
 import { NotePreview } from '@/components/NotePreview'
 
-export const NotePreviewList = ({ className, ...props }: ComponentProps<'ul'>) => {
-  const { notes, selectedNodeIndex, handleNoteSelect } = useNotesList({})
+export type NotePreviewListProps = ComponentProps<'ul'> & {
+  onSelect?: () => void
+}
+
+export const NotePreviewList = ({ onSelect, className, ...props }: NotePreviewListProps) => {
+  const { notes, selectedNodeIndex, handleNoteSelect } = useNotesList({ onSelect })
 
   if (notes.length === 0) {
     return (
