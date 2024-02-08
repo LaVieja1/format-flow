@@ -1,7 +1,7 @@
 import { atom } from 'jotai'
 import { unwrap } from 'jotai/utils'
 
-import { NoteInfo } from '@shared/models'
+import { NoteContent, NoteInfo } from '@shared/models'
 
 const loadNotes = async () => {
   const notes = await window.context.getNotes()
@@ -41,6 +41,32 @@ export const selectedNodeAtom = unwrap(
       lastEditTime: Date.now()
     }
 )
+
+export const saveNoteAtom = atom(null, async (get, set, newContent: NoteContent) => {
+  const notes = get(notesAtom)
+  const selectedNote = get(selectedNodeAtom)
+
+  if (!selectedNote || !notes) return
+
+  //guardar en disco
+  await window.context.writeNote(selectedNote.title, newContent)
+
+  //actualizar nota guardada last edit time
+  set(
+    notesAtom,
+    notes.map((note) => {
+      // si es la nota que queremos actualizar
+      if (note.title === selectedNote.title) {
+        return {
+          ...selectedNote,
+          lastEditTime: Date.now()
+        }
+      }
+
+      return note
+    })
+  )
+})
 
 export const createEmptyNoteAtom = atom(null, (get, set) => {
   const notes = get(notesAtom)
