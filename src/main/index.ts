@@ -13,6 +13,7 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
+    icon: join(__dirname, '../../resources/icon.png'),
     center: true,
     title: 'FormatFlow',
     frame: true,
